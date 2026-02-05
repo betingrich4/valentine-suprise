@@ -14,43 +14,44 @@
         }
         
         body {
-            background: linear-gradient(45deg, #ffafbd, #ffc3a0);
+            background: #ff6b8b; /* Solid pink background */
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 20px;
             overflow-x: hidden;
+            position: relative;
+        }
+        
+        /* Valentine background pattern */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(#ff9eb5 15%, transparent 16%),
+                radial-gradient(#ff9eb5 15%, transparent 16%);
+            background-size: 60px 60px;
+            background-position: 0 0, 30px 30px;
+            opacity: 0.3;
+            z-index: 0;
         }
         
         .container {
-            background-color: rgba(255, 255, 255, 0.9);
+            background-color: rgba(255, 255, 255, 0.95);
             border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             padding: 40px;
             max-width: 800px;
             width: 100%;
             text-align: center;
             position: relative;
-            overflow: hidden;
-            border: 8px solid #ff6b8b;
-        }
-        
-        .container::before {
-            content: "";
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90">💖</text></svg>') repeat;
-            opacity: 0.1;
-            z-index: 0;
-        }
-        
-        .content {
-            position: relative;
             z-index: 1;
+            border: 8px solid #ff4d6d;
         }
         
         h1 {
@@ -72,14 +73,13 @@
             max-width: 400px;
             border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
             height: 300px;
             display: flex;
             align-items: center;
             justify-content: center;
         }
         
-        /* UPDATED: This now styles img tags instead of iframes */
         .gif-container img {
             width: 100%;
             height: 100%;
@@ -132,37 +132,19 @@
             box-shadow: 0 8px 20px rgba(91, 134, 229, 0.6);
         }
         
+        .press-button {
+            background: linear-gradient(to right, #ff9a00, #ffcc00);
+            color: white;
+            box-shadow: 0 5px 15px rgba(255, 154, 0, 0.4);
+        }
+        
+        .press-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(255, 154, 0, 0.6);
+        }
+        
         .hidden {
             display: none !important;
-        }
-        
-        .hearts {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            pointer-events: none;
-            z-index: 0;
-        }
-        
-        .heart {
-            position: absolute;
-            font-size: 24px;
-            color: #ff6b8b;
-            opacity: 0;
-            animation: float 5s linear infinite;
-        }
-        
-        @keyframes float {
-            0% {
-                transform: translateY(100vh) rotate(0deg);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-100px) rotate(360deg);
-                opacity: 0;
-            }
         }
         
         .final-message {
@@ -237,20 +219,16 @@
 </head>
 <body>
     <div class="container">
-        <div class="hearts" id="heartsContainer"></div>
-        
         <div class="content">
-            <!-- Initial Screen -->
+            <!-- Initial Screen - Only "Press Here" button -->
             <div id="initialScreen">
                 <h1>Happy Valentine's Day! 💘</h1>
                 <div class="gif-container">
-                    <!-- REPLACE THIS URL WITH YOUR OPENING GIF FROM GITHUB -->
-                    <img src="https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO_NAME/main/opening.gif" alt="Will you be my Valentine?">
+                    <img src="https://raw.githubusercontent.com/betingrich4/valentine-suprise/main/opening.gif" alt="Will you be my Valentine?">
                 </div>
                 <p class="question">Will you be my Valentine? 🌹</p>
                 <div class="buttons">
-                    <button id="yesBtn" class="yes-button"><i class="fas fa-heart"></i> Yes!</button>
-                    <button id="noBtn" class="no-button"><i class="fas fa-times-circle"></i> No</button>
+                    <button id="pressBtn" class="press-button"><i class="fas fa-hand-pointer"></i> Press Here</button>
                 </div>
             </div>
             
@@ -258,13 +236,11 @@
             <div id="sureScreen" class="hidden">
                 <h1>Wait... ⏳</h1>
                 <div class="gif-container">
-                    <!-- REPLACE THIS URL WITH YOUR SAD1 GIF FROM GITHUB -->
-                    <img src="https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO_NAME/main/sad1.gif" alt="Are you sure?">
+                    <img src="https://raw.githubusercontent.com/betingrich4/valentine-suprise/main/sad1.gif" alt="Are you sure?">
                 </div>
                 <p class="question">Are you sure about this? You don't want to?? 😢</p>
                 <div class="buttons">
-                    <button id="yesSureBtn" class="yes-button"><i class="fas fa-heart"></i> Yes, I'm sure!</button>
-                    <button id="noSureBtn" class="no-button"><i class="fas fa-times-circle"></i> No, I changed my mind</button>
+                    <button id="noSureBtn" class="no-button"><i class="fas fa-times-circle"></i> No</button>
                 </div>
             </div>
             
@@ -272,13 +248,11 @@
             <div id="cryScreen" class="hidden">
                 <h1>Oh no... 😭</h1>
                 <div class="gif-container">
-                    <!-- REPLACE THIS URL WITH YOUR SAD2 GIF FROM GITHUB -->
-                    <img src="https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO_NAME/main/sad2.gif" alt="Crying GIF">
+                    <img src="https://raw.githubusercontent.com/betingrich4/valentine-suprise/main/sad2.gif" alt="Crying GIF">
                 </div>
                 <p class="question">You're going to make me cry... 💔</p>
                 <div class="buttons">
-                    <button id="yesCryBtn" class="yes-button"><i class="fas fa-heart"></i> Okay, I'll say yes!</button>
-                    <button id="noCryBtn" class="no-button"><i class="fas fa-times-circle"></i> No, sorry</button>
+                    <button id="noCryBtn" class="no-button"><i class="fas fa-times-circle"></i> No</button>
                 </div>
             </div>
             
@@ -286,23 +260,57 @@
             <div id="brokenScreen" class="hidden">
                 <h1>My heart is broken... 💔</h1>
                 <div class="gif-container">
-                    <!-- REPLACE THIS URL WITH YOUR SAD3 GIF FROM GITHUB -->
-                    <img src="https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO_NAME/main/sad3.gif" alt="Broken heart GIF">
+                    <img src="https://raw.githubusercontent.com/betingrich4/valentine-suprise/main/sad3.gif" alt="Broken heart GIF">
                 </div>
                 <p class="question">You have broken my heart now... 😭</p>
                 <div class="buttons">
-                    <button id="yesBrokenBtn" class="yes-button"><i class="fas fa-heartbeat"></i> I'm sorry, yes!</button>
+                    <button id="yesBrokenBtn" class="yes-button"><i class="fas fa-heartbeat"></i> OK</button>
                 </div>
             </div>
             
-            <!-- Final screen -->
+            <!-- Final Yay screen -->
             <div id="finalScreen" class="hidden">
                 <h1>Yay! 🎉💖</h1>
                 <div class="gif-container">
-                    <!-- REPLACE THIS URL WITH YOUR HAPPY GIF FROM GITHUB -->
-                    <img src="https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO_NAME/main/happy.gif" alt="Happy celebration GIF">
+                    <img src="https://raw.githubusercontent.com/betingrich4/valentine-suprise/main/happy.gif" alt="Happy celebration GIF">
                 </div>
-                <p class="final-message">You made me the happiest! Happy Valentine's Day! 💝</p>
+                <p class="final-message">You made it babe the Happy Valentine's Day! I Love you So Much💝</p>
+                <div class="buttons">
+                    <button id="loveBtn" class="yes-button"><i class="fas fa-heart"></i> I love you too!</button>
+                </div>
+            </div>
+            
+            <!-- Love GIF screen -->
+            <div id="loveScreen" class="hidden">
+                <h1>You Are So Sweet </h1>
+                <div class="gif-container">
+                    <img src="https://raw.githubusercontent.com/betingrich4/valentine-suprise/main/love.gif" alt="Love GIF">
+                </div>
+                <p class="question">Can I hug you? 🤗</p>
+                <div class="buttons">
+                    <button id="hugYesBtn" class="yes-button"><i class="fas fa-hands"></i> Yes!</button>
+                </div>
+            </div>
+            
+            <!-- Hug GIF screen -->
+            <div id="hugScreen" class="hidden">
+                <h1>Hug! 🥰</h1>
+                <div class="gif-container">
+                    <img src="https://raw.githubusercontent.com/betingrich4/valentine-suprise/main/hug.gif" alt="Hug GIF">
+                </div>
+                <p class="final-message">Thank You So Much 💞</p>
+                <div class="buttons">
+                    <button id="giftBtn" class="yes-button"><i class="fas fa-gift"></i> Do you want to see a gift?</button>
+                </div>
+            </div>
+            
+            <!-- Surprise Gift screen -->
+            <div id="giftScreen" class="hidden">
+                <h1>Surprise! 🎁</h1>
+                <div class="gif-container">
+                    <img src="https://raw.githubusercontent.com/betingrich4/valentine-suprise/main/suprise.gif" alt="Surprise Gift GIF">
+                </div>
+                <p class="final-message">You're the best gift I could ever ask for! 💝</p>
                 <div class="buttons">
                     <button id="restartBtn" class="yes-button"><i class="fas fa-redo"></i> Start Over</button>
                 </div>
@@ -317,17 +325,20 @@
             sure: document.getElementById('sureScreen'),
             cry: document.getElementById('cryScreen'),
             broken: document.getElementById('brokenScreen'),
-            final: document.getElementById('finalScreen')
+            final: document.getElementById('finalScreen'),
+            love: document.getElementById('loveScreen'),
+            hug: document.getElementById('hugScreen'),
+            gift: document.getElementById('giftScreen')
         };
 
         const buttons = {
-            yesBtn: document.getElementById('yesBtn'),
-            noBtn: document.getElementById('noBtn'),
-            yesSureBtn: document.getElementById('yesSureBtn'),
+            pressBtn: document.getElementById('pressBtn'),
             noSureBtn: document.getElementById('noSureBtn'),
-            yesCryBtn: document.getElementById('yesCryBtn'),
             noCryBtn: document.getElementById('noCryBtn'),
             yesBrokenBtn: document.getElementById('yesBrokenBtn'),
+            loveBtn: document.getElementById('loveBtn'),
+            hugYesBtn: document.getElementById('hugYesBtn'),
+            giftBtn: document.getElementById('giftBtn'),
             restartBtn: document.getElementById('restartBtn')
         };
 
@@ -339,75 +350,36 @@
             }
             // Show the requested screen
             screens[screenToShow].classList.remove('hidden');
-            
-            // Create floating hearts when showing final screen
-            if (screenToShow === 'final') {
-                createHearts();
-            }
-        }
-
-        // Create floating hearts animation
-        function createHearts() {
-            const heartsContainer = document.getElementById('heartsContainer');
-            heartsContainer.innerHTML = '';
-            
-            for (let i = 0; i < 50; i++) {
-                const heart = document.createElement('div');
-                heart.classList.add('heart');
-                heart.innerHTML = '💖';
-                heart.style.left = Math.random() * 100 + '%';
-                heart.style.animationDelay = Math.random() * 5 + 's';
-                heart.style.fontSize = (Math.random() * 20 + 20) + 'px';
-                heart.style.color = i % 3 === 0 ? '#ff6b8b' : (i % 3 === 1 ? '#ff4d6d' : '#ff8e9e');
-                heartsContainer.appendChild(heart);
-            }
         }
 
         // Event Listeners
-        // Initial screen
-        buttons.yesBtn.addEventListener('click', () => showScreen('sure'));
-        buttons.noBtn.addEventListener('click', () => showScreen('sure'));
-
-        // Sure screen
-        buttons.yesSureBtn.addEventListener('click', () => showScreen('cry'));
+        
+        // Initial screen: Press Here → Sure screen
+        buttons.pressBtn.addEventListener('click', () => showScreen('sure'));
+        
+        // Sure screen: No → Cry screen
         buttons.noSureBtn.addEventListener('click', () => showScreen('cry'));
-
-        // Cry screen
-        buttons.yesCryBtn.addEventListener('click', () => showScreen('final'));
+        
+        // Cry screen: No → Broken screen
         buttons.noCryBtn.addEventListener('click', () => showScreen('broken'));
-
-        // Broken screen
+        
+        // Broken screen: OK → Final screen
         buttons.yesBrokenBtn.addEventListener('click', () => showScreen('final'));
-
-        // Final screen
-        buttons.restartBtn.addEventListener('click', () => {
-            showScreen('initial');
-            // Remove floating hearts
-            document.getElementById('heartsContainer').innerHTML = '';
-        });
-
-        // Make the No button move away on hover (for initial screen)
-        buttons.noBtn.addEventListener('mouseover', function() {
-            const container = this.closest('.buttons');
-            const containerRect = container.getBoundingClientRect();
-            
-            const maxX = containerRect.width - this.offsetWidth;
-            const maxY = containerRect.height - this.offsetHeight;
-            
-            const randomX = Math.floor(Math.random() * maxX);
-            const randomY = Math.floor(Math.random() * maxY);
-            
-            this.style.position = 'absolute';
-            this.style.left = randomX + 'px';
-            this.style.top = randomY + 'px';
-            this.style.transition = 'all 0.5s ease';
-        });
+        
+        // Final screen: I love you too → Love screen
+        buttons.loveBtn.addEventListener('click', () => showScreen('love'));
+        
+        // Love screen: Yes! (to hug) → Hug screen
+        buttons.hugYesBtn.addEventListener('click', () => showScreen('hug'));
+        
+        // Hug screen: Do you want to see a gift? → Gift screen
+        buttons.giftBtn.addEventListener('click', () => showScreen('gift'));
+        
+        // Gift screen: Start Over → Initial screen
+        buttons.restartBtn.addEventListener('click', () => showScreen('initial'));
 
         // Initialize by showing the initial screen
         showScreen('initial');
-        
-        // Create a few hearts on initial load
-        createHearts();
     </script>
 </body>
 </html>
