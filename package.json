@@ -1,0 +1,13 @@
+{
+  "name": "valentine-surprise",
+  "version": "1.0.0",
+  "description": "Will You Be My Valentine?",
+  "scripts": {
+    "build": "echo 'No build step required for static site'",
+    "start": "echo 'Static site - just serve the files'"
+  },
+  "dependencies": {},
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
