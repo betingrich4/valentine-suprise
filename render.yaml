@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: valentine-surprise
+    env: static
+    buildCommand: "mkdir -p build && cp index.html build/"
+    startCommand: ""
+    staticPublishPath: ./build
