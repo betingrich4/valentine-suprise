@@ -162,10 +162,79 @@
             animation: pulse 1.5s infinite;
         }
         
+        /* Letter Styles */
+        .letter-container {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: left;
+            background: linear-gradient(to bottom right, #fff0f3, #fff);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(255, 107, 139, 0.2);
+            border-left: 5px solid #ff4d6d;
+            max-height: 400px;
+            overflow-y: auto;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+        }
+        
+        .letter-header {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #ff4d6d;
+            font-size: 1.5rem;
+        }
+        
+        .letter-date {
+            text-align: right;
+            color: #666;
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+        
+        .letter-body {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: #444;
+        }
+        
+        .letter-closing {
+            margin-top: 20px;
+            text-align: right;
+            font-size: 1.3rem;
+            color: #ff4d6d;
+            font-weight: bold;
+        }
+        
+        .letter-signature {
+            font-family: cursive;
+            font-size: 1.5rem;
+            color: #ff4d6d;
+            margin-top: 5px;
+        }
+        
+        .letter-hearts {
+            text-align: center;
+            font-size: 1.5rem;
+            color: #ff4d6d;
+            margin: 15px 0;
+            animation: pulse 1.5s infinite;
+        }
+        
         @keyframes pulse {
             0% { transform: scale(1); }
             50% { transform: scale(1.05); }
             100% { transform: scale(1); }
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .floating-heart {
+            animation: float 3s ease-in-out infinite;
+            display: inline-block;
         }
         
         @media (max-width: 768px) {
@@ -195,6 +264,15 @@
             .buttons {
                 gap: 20px;
             }
+            
+            .letter-container {
+                padding: 20px;
+                max-height: 350px;
+            }
+            
+            .letter-body {
+                font-size: 1.1rem;
+            }
         }
         
         @media (max-width: 480px) {
@@ -220,6 +298,15 @@
             .buttons {
                 flex-direction: column;
                 align-items: center;
+            }
+            
+            .letter-container {
+                padding: 15px;
+                max-height: 300px;
+            }
+            
+            .letter-body {
+                font-size: 1rem;
             }
         }
     </style>
@@ -274,11 +361,11 @@
             
             <!-- Broken heart screen -->
             <div id="brokenScreen" class="hidden">
-                <h1>My heart was almost broken... 💔</h1>
+                <h1>My heart is broken... 💔</h1>
                 <div class="gif-container">
                     <img src="https://raw.githubusercontent.com/betingrich4/valentine-suprise/main/sad3.gif" alt="Broken heart GIF">
                 </div>
-                <p class="question">You have Rescued my heart now... 😭</p>
+                <p class="question">You have broken my heart now... 😭</p>
                 <div class="buttons">
                     <button id="yesBrokenBtn" class="yes-button"><i class="fas fa-heartbeat"></i> OK</button>
                 </div>
@@ -328,6 +415,40 @@
                 </div>
                 <p class="final-message">You're the best gift I could ever ask for! 💝</p>
                 <div class="buttons">
+                    <button id="letterBtn" class="yes-button"><i class="fas fa-envelope"></i> Read a Letter</button>
+                </div>
+            </div>
+            
+            <!-- Love Letter Screen -->
+            <div id="letterScreen" class="hidden">
+                <h1>A Letter For You 💌</h1>
+                <div class="letter-container">
+                    <div class="letter-header">My Dearest Lovie,</div>
+                    <div class="letter-date">Valentine's Day ❤️</div>
+                    <div class="letter-body">
+                        <p>From the moment our paths crossed, my life transformed into something beautiful beyond words. Every day with you feels like a dream I never want to wake up from.</p>
+                        
+                        <p>Thank you for being in my life, for trusting in me when I was just finding my way, and for seeing the person I could become. Your faith in me has given me strength I never knew I had.</p>
+                        
+                        <p>Thank you for always being there - through the laughter that fills our days, through the quiet moments that speak volumes, and through everything in between. You've shown me what true partnership means.</p>
+                        
+                        <p>Your smile lights up my world brighter than any star. Your kindness touches my soul deeper than any ocean. Your love completes me in ways I never imagined possible.</p>
+                        
+                        <p>Every "good morning" text, every shared meal, every inside joke, every comforting hug - these are the treasures I hold closest to my heart. You've woven yourself into the very fabric of my being.</p>
+                        
+                        <p>On this Valentine's Day, I want you to know that my love for you grows stronger with each passing moment. You are my sanctuary, my inspiration, my greatest adventure, and my home.</p>
+                        
+                        <p>I promise to cherish you always, to support your dreams as you've supported mine, and to love you more today than yesterday, but less than tomorrow.</p>
+                    </div>
+                    <div class="letter-hearts">
+                        <span class="floating-heart">💖</span> <span class="floating-heart">💝</span> <span class="floating-heart">💗</span>
+                    </div>
+                    <div class="letter-closing">
+                        Forever Yours,<br>
+                        <span class="letter-signature">Marisel</span>
+                    </div>
+                </div>
+                <div class="buttons" style="margin-top: 30px;">
                     <button id="restartBtn" class="yes-button"><i class="fas fa-redo"></i> Start Over</button>
                 </div>
             </div>
@@ -344,7 +465,8 @@
             final: document.getElementById('finalScreen'),
             love: document.getElementById('loveScreen'),
             hug: document.getElementById('hugScreen'),
-            gift: document.getElementById('giftScreen')
+            gift: document.getElementById('giftScreen'),
+            letter: document.getElementById('letterScreen')
         };
 
         const buttons = {
@@ -355,6 +477,7 @@
             loveBtn: document.getElementById('loveBtn'),
             hugYesBtn: document.getElementById('hugYesBtn'),
             giftBtn: document.getElementById('giftBtn'),
+            letterBtn: document.getElementById('letterBtn'),
             restartBtn: document.getElementById('restartBtn')
         };
 
@@ -391,7 +514,10 @@
         // Hug screen: Do you want to see a gift? → Gift screen
         buttons.giftBtn.addEventListener('click', () => showScreen('gift'));
         
-        // Gift screen: Start Over → Initial screen
+        // Gift screen: Read a Letter → Letter screen
+        buttons.letterBtn.addEventListener('click', () => showScreen('letter'));
+        
+        // Letter screen: Start Over → Initial screen
         buttons.restartBtn.addEventListener('click', () => showScreen('initial'));
 
         // Initialize by showing the initial screen
