@@ -14,7 +14,7 @@
         }
         
         body {
-            background: #ff6b8b; /* Solid pink background */
+            background: #000;
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -24,27 +24,33 @@
             position: relative;
         }
         
-        /* Valentine background pattern */
-        body::before {
-            content: "";
-            position: absolute;
+        /* Video Background */
+        #video-background {
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: 
-                radial-gradient(#ff9eb5 15%, transparent 16%),
-                radial-gradient(#ff9eb5 15%, transparent 16%);
-            background-size: 60px 60px;
-            background-position: 0 0, 30px 30px;
-            opacity: 0.3;
-            z-index: 0;
+            object-fit: cover;
+            z-index: -1;
+            opacity: 0.8;
+        }
+        
+        /* Overlay to improve text readability */
+        .video-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: -1;
         }
         
         .container {
             background-color: rgba(255, 255, 255, 0.95);
             border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
             padding: 40px;
             max-width: 800px;
             width: 100%;
@@ -52,6 +58,7 @@
             position: relative;
             z-index: 1;
             border: 8px solid #ff4d6d;
+            backdrop-filter: blur(5px);
         }
         
         h1 {
@@ -73,7 +80,7 @@
             max-width: 400px;
             border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
             height: 300px;
             display: flex;
             align-items: center;
@@ -113,34 +120,34 @@
         .yes-button {
             background: linear-gradient(to right, #ff6b8b, #ff8e9e);
             color: white;
-            box-shadow: 0 5px 15px rgba(255, 107, 139, 0.4);
+            box-shadow: 0 5px 15px rgba(255, 107, 139, 0.6);
         }
         
         .yes-button:hover {
             transform: scale(1.1);
-            box-shadow: 0 8px 20px rgba(255, 107, 139, 0.6);
+            box-shadow: 0 8px 20px rgba(255, 107, 139, 0.8);
         }
         
         .no-button {
             background: linear-gradient(to right, #36d1dc, #5b86e5);
             color: white;
-            box-shadow: 0 5px 15px rgba(91, 134, 229, 0.4);
+            box-shadow: 0 5px 15px rgba(91, 134, 229, 0.6);
         }
         
         .no-button:hover {
             transform: scale(1.1);
-            box-shadow: 0 8px 20px rgba(91, 134, 229, 0.6);
+            box-shadow: 0 8px 20px rgba(91, 134, 229, 0.8);
         }
         
         .press-button {
             background: linear-gradient(to right, #ff9a00, #ffcc00);
             color: white;
-            box-shadow: 0 5px 15px rgba(255, 154, 0, 0.4);
+            box-shadow: 0 5px 15px rgba(255, 154, 0, 0.6);
         }
         
         .press-button:hover {
             transform: scale(1.1);
-            box-shadow: 0 8px 20px rgba(255, 154, 0, 0.6);
+            box-shadow: 0 8px 20px rgba(255, 154, 0, 0.8);
         }
         
         .hidden {
@@ -218,6 +225,15 @@
     </style>
 </head>
 <body>
+    <!-- Video Background -->
+    <video id="video-background" autoplay muted loop playsinline>
+        <source src="https://files.catbox.moe/ok00nq.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    
+    <!-- Overlay for better text readability -->
+    <div class="video-overlay"></div>
+    
     <div class="container">
         <div class="content">
             <!-- Initial Screen - Only "Press Here" button -->
@@ -258,11 +274,11 @@
             
             <!-- Broken heart screen -->
             <div id="brokenScreen" class="hidden">
-                <h1>My heart is broken... 💔</h1>
+                <h1>My heart was almost broken... 💔</h1>
                 <div class="gif-container">
                     <img src="https://raw.githubusercontent.com/betingrich4/valentine-suprise/main/sad3.gif" alt="Broken heart GIF">
                 </div>
-                <p class="question">You have broken my heart now... 😭</p>
+                <p class="question">You have Rescued my heart now... 😭</p>
                 <div class="buttons">
                     <button id="yesBrokenBtn" class="yes-button"><i class="fas fa-heartbeat"></i> OK</button>
                 </div>
@@ -380,6 +396,19 @@
 
         // Initialize by showing the initial screen
         showScreen('initial');
+        
+        // Ensure video plays correctly on mobile devices
+        document.addEventListener('DOMContentLoaded', function() {
+            const video = document.getElementById('video-background');
+            video.play().catch(function(error) {
+                console.log("Video autoplay failed:", error);
+                // If autoplay fails, try playing on user interaction
+                document.addEventListener('click', function playVideo() {
+                    video.play();
+                    document.removeEventListener('click', playVideo);
+                });
+            });
+        });
     </script>
 </body>
 </html>
