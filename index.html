@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will You Be My Valentine? 💝</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(45deg, #ffafbd, #ffc3a0);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            padding: 40px;
+            max-width: 800px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border: 8px solid #ff6b8b;
+        }
+        
+        .container::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90">💖</text></svg>') repeat;
+            opacity: 0.1;
+            z-index: 0;
+        }
+        
+        .content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        h1 {
+            color: #ff4d6d;
+            font-size: 2.8rem;
+            margin-bottom: 30px;
+            text-shadow: 3px 3px 0px rgba(255, 107, 139, 0.2);
+        }
+        
+        .question {
+            font-size: 1.8rem;
+            color: #333;
+            margin-bottom: 30px;
+            font-weight: bold;
+        }
+        
+        .gif-container {
+            margin: 30px auto;
+            max-width: 400px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* UPDATED: This now styles img tags instead of iframes */
+        .gif-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        
+        button {
+            padding: 18px 40px;
+            font-size: 1.5rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            min-width: 180px;
+        }
+        
+        .yes-button {
+            background: linear-gradient(to right, #ff6b8b, #ff8e9e);
+            color: white;
+            box-shadow: 0 5px 15px rgba(255, 107, 139, 0.4);
+        }
+        
+        .yes-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(255, 107, 139, 0.6);
+        }
+        
+        .no-button {
+            background: linear-gradient(to right, #36d1dc, #5b86e5);
+            color: white;
+            box-shadow: 0 5px 15px rgba(91, 134, 229, 0.4);
+        }
+        
+        .no-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(91, 134, 229, 0.6);
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+        
+        .hearts {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .heart {
+            position: absolute;
+            font-size: 24px;
+            color: #ff6b8b;
+            opacity: 0;
+            animation: float 5s linear infinite;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        .final-message {
+            font-size: 2rem;
+            color: #ff4d6d;
+            margin: 30px 0;
+            font-weight: bold;
+            animation: pulse 1.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 25px;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .question {
+                font-size: 1.5rem;
+            }
+            
+            .gif-container {
+                height: 250px;
+                max-width: 350px;
+            }
+            
+            button {
+                padding: 15px 30px;
+                font-size: 1.3rem;
+                min-width: 150px;
+            }
+            
+            .buttons {
+                gap: 20px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .question {
+                font-size: 1.3rem;
+            }
+            
+            .gif-container {
+                height: 200px;
+                max-width: 300px;
+            }
+            
+            button {
+                padding: 12px 25px;
+                font-size: 1.1rem;
+                min-width: 130px;
+            }
+            
+            .buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="hearts" id="heartsContainer"></div>
+        
+        <div class="content">
+            <!-- Initial Screen -->
+            <div id="initialScreen">
+                <h1>Happy Valentine's Day! 💘</h1>
+                <div class="gif-container">
+                    <!-- REPLACE THIS URL WITH YOUR OPENING GIF FROM GITHUB -->
+                    <img src="https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO_NAME/main/opening.gif" alt="Will you be my Valentine?">
+                </div>
+                <p class="question">Will you be my Valentine? 🌹</p>
+                <div class="buttons">
+                    <button id="yesBtn" class="yes-button"><i class="fas fa-heart"></i> Yes!</button>
+                    <button id="noBtn" class="no-button"><i class="fas fa-times-circle"></i> No</button>
+                </div>
+            </div>
+            
+            <!-- Are you sure screen -->
+            <div id="sureScreen" class="hidden">
+                <h1>Wait... ⏳</h1>
+                <div class="gif-container">
+                    <!-- REPLACE THIS URL WITH YOUR SAD1 GIF FROM GITHUB -->
+                    <img src="https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO_NAME/main/sad1.gif" alt="Are you sure?">
+                </div>
+                <p class="question">Are you sure about this? You don't want to?? 😢</p>
+                <div class="buttons">
+                    <button id="yesSureBtn" class="yes-button"><i class="fas fa-heart"></i> Yes, I'm sure!</button>
+                    <button id="noSureBtn" class="no-button"><i class="fas fa-times-circle"></i> No, I changed my mind</button>
+                </div>
+            </div>
+            
+            <!-- You're going to make me cry screen -->
+            <div id="cryScreen" class="hidden">
+                <h1>Oh no... 😭</h1>
+                <div class="gif-container">
+                    <!-- REPLACE THIS URL WITH YOUR SAD2 GIF FROM GITHUB -->
+                    <img src="https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO_NAME/main/sad2.gif" alt="Crying GIF">
+                </div>
+                <p class="question">You're going to make me cry... 💔</p>
+                <div class="buttons">
+                    <button id="yesCryBtn" class="yes-button"><i class="fas fa-heart"></i> Okay, I'll say yes!</button>
+                    <button id="noCryBtn" class="no-button"><i class="fas fa-times-circle"></i> No, sorry</button>
+                </div>
+            </div>
+            
+            <!-- Broken heart screen -->
+            <div id="brokenScreen" class="hidden">
+                <h1>My heart is broken... 💔</h1>
+                <div class="gif-container">
+                    <!-- REPLACE THIS URL WITH YOUR SAD3 GIF FROM GITHUB -->
+                    <img src="https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO_NAME/main/sad3.gif" alt="Broken heart GIF">
+                </div>
+                <p class="question">You have broken my heart now... 😭</p>
+                <div class="buttons">
+                    <button id="yesBrokenBtn" class="yes-button"><i class="fas fa-heartbeat"></i> I'm sorry, yes!</button>
+                </div>
+            </div>
+            
+            <!-- Final screen -->
+            <div id="finalScreen" class="hidden">
+                <h1>Yay! 🎉💖</h1>
+                <div class="gif-container">
+                    <!-- REPLACE THIS URL WITH YOUR HAPPY GIF FROM GITHUB -->
+                    <img src="https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO_NAME/main/happy.gif" alt="Happy celebration GIF">
+                </div>
+                <p class="final-message">You made me the happiest! Happy Valentine's Day! 💝</p>
+                <div class="buttons">
+                    <button id="restartBtn" class="yes-button"><i class="fas fa-redo"></i> Start Over</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // DOM Elements
+        const screens = {
+            initial: document.getElementById('initialScreen'),
+            sure: document.getElementById('sureScreen'),
+            cry: document.getElementById('cryScreen'),
+            broken: document.getElementById('brokenScreen'),
+            final: document.getElementById('finalScreen')
+        };
+
+        const buttons = {
+            yesBtn: document.getElementById('yesBtn'),
+            noBtn: document.getElementById('noBtn'),
+            yesSureBtn: document.getElementById('yesSureBtn'),
+            noSureBtn: document.getElementById('noSureBtn'),
+            yesCryBtn: document.getElementById('yesCryBtn'),
+            noCryBtn: document.getElementById('noCryBtn'),
+            yesBrokenBtn: document.getElementById('yesBrokenBtn'),
+            restartBtn: document.getElementById('restartBtn')
+        };
+
+        // Function to switch screens
+        function showScreen(screenToShow) {
+            // Hide all screens
+            for (const screen in screens) {
+                screens[screen].classList.add('hidden');
+            }
+            // Show the requested screen
+            screens[screenToShow].classList.remove('hidden');
+            
+            // Create floating hearts when showing final screen
+            if (screenToShow === 'final') {
+                createHearts();
+            }
+        }
+
+        // Create floating hearts animation
+        function createHearts() {
+            const heartsContainer = document.getElementById('heartsContainer');
+            heartsContainer.innerHTML = '';
+            
+            for (let i = 0; i < 50; i++) {
+                const heart = document.createElement('div');
+                heart.classList.add('heart');
+                heart.innerHTML = '💖';
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDelay = Math.random() * 5 + 's';
+                heart.style.fontSize = (Math.random() * 20 + 20) + 'px';
+                heart.style.color = i % 3 === 0 ? '#ff6b8b' : (i % 3 === 1 ? '#ff4d6d' : '#ff8e9e');
+                heartsContainer.appendChild(heart);
+            }
+        }
+
+        // Event Listeners
+        // Initial screen
+        buttons.yesBtn.addEventListener('click', () => showScreen('sure'));
+        buttons.noBtn.addEventListener('click', () => showScreen('sure'));
+
+        // Sure screen
+        buttons.yesSureBtn.addEventListener('click', () => showScreen('cry'));
+        buttons.noSureBtn.addEventListener('click', () => showScreen('cry'));
+
+        // Cry screen
+        buttons.yesCryBtn.addEventListener('click', () => showScreen('final'));
+        buttons.noCryBtn.addEventListener('click', () => showScreen('broken'));
+
+        // Broken screen
+        buttons.yesBrokenBtn.addEventListener('click', () => showScreen('final'));
+
+        // Final screen
+        buttons.restartBtn.addEventListener('click', () => {
+            showScreen('initial');
+            // Remove floating hearts
+            document.getElementById('heartsContainer').innerHTML = '';
+        });
+
+        // Make the No button move away on hover (for initial screen)
+        buttons.noBtn.addEventListener('mouseover', function() {
+            const container = this.closest('.buttons');
+            const containerRect = container.getBoundingClientRect();
+            
+            const maxX = containerRect.width - this.offsetWidth;
+            const maxY = containerRect.height - this.offsetHeight;
+            
+            const randomX = Math.floor(Math.random() * maxX);
+            const randomY = Math.floor(Math.random() * maxY);
+            
+            this.style.position = 'absolute';
+            this.style.left = randomX + 'px';
+            this.style.top = randomY + 'px';
+            this.style.transition = 'all 0.5s ease';
+        });
+
+        // Initialize by showing the initial screen
+        showScreen('initial');
+        
+        // Create a few hearts on initial load
+        createHearts();
+    </script>
+</body>
+</html>
